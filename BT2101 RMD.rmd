@@ -28,3 +28,13 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+## Saving variables
+
+You can save variables here, for example:
+
+```{r}
+lmTest <- lm(pressure$pressure ~ pressure$temperature)
+summary(lmTest)
+```
