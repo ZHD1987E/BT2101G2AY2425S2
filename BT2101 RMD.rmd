@@ -11,10 +11,11 @@ energy <- read.csv("energy_data.csv")
 head(energy)
 ```
 
-...and here is one for AI patents:
+...and here is one for AI patents (which we use as a proxy of how AI-intensive a country is):
 
 ```{r}
 patent <- read.csv("ai_patents.csv")
+patent <- patent %>% rename(patent_count = Patent.applications...Field..All)
 head(patent)
 ```
 
@@ -24,7 +25,7 @@ Obviously, we need to merge them in some way. This is what we have done.
 library(dplyr)
 energy <- energy %>% filter(iso_code != "") %>% group_by(country, year) %>% mutate(combinekey = paste(iso_code,toString(year)))
 patent <- patent %>% group_by(Code, Year) %>% mutate(combinekey = paste(Code,toString(Year)))
-combine <- inner_join(patent, energy, by = c("combinekey"))
+combine <- inner_join(patent, energy, by = c("combinekey")) %>% select(-Year, -iso_code, -country, -combinekey)
 head(combine)
 ```
 
@@ -36,9 +37,27 @@ Of course, we can do further consolidation as we go along.
 
 **A warning about our observations**
 
-Specifically, we ARE looking at an unbalanced dataset.
+Like many real-world data, we ARE looking at an unbalanced dataset.
 
 ```{r}
 combine %>% group_by(Code) %>% count(Code)
 combine %>% group_by(Year) %>% count(Year)
 ```
+
+So what now?
+
+BLAH BLAH BLAH
+
+# Our Hypothesis
+
+In total, we have three hypotheses to test out, as taken from the perception of the general public.
+
+## Is it really true that having more AI use will lead to more reusables???
+
+Ah yes, AI is technically an energy guzzler, all using up large amount of energy...
+
+[I recommend you cite in the slides LOL]
+
+## Another hypothesis goes here!
+
+## The last one goes here.
