@@ -23,7 +23,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          install.packages(c('rmarkdown'))
+          install.packages('rmarkdown')
 
       - name: Render R Markdown
         run: Rscript -e "rmarkdown::render('BT2101 RMD.Rmd')" #replace your_document.Rmd
