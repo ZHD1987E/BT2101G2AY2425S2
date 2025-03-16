@@ -8,12 +8,14 @@ output: github_document
 Before we begin, we need to import the relevant datasets, here is one for the energy consumption:
 ```{r}
 energy <- read.csv("energy_data.csv")
+energy <- energy %>% select(!contains(c("change", "share", "per_capita"), ignore.case = FALSE)) %>% filter(iso_code != "")
 head(energy)
 ```
 
 ...and here is one for AI patents (which we use as a proxy of how AI-intensive a country is):
 
 ```{r}
+library(dplyr)
 patent <- read.csv("ai_patents.csv")
 patent <- patent %>% rename(patent_count = Patent.applications...Field..All)
 head(patent)
@@ -22,8 +24,7 @@ head(patent)
 Obviously, we need to merge them in some way. This is what we have done.
 
 ```{r}
-library(dplyr)
-energy <- energy %>% filter(iso_code != "") %>% group_by(country, year) %>% mutate(combinekey = paste(iso_code,toString(year)))
+energy <- energy %>% group_by(country, year) %>% mutate(combinekey = paste(iso_code,toString(year)))
 patent <- patent %>% group_by(Code, Year) %>% mutate(combinekey = paste(Code,toString(Year)))
 combine <- inner_join(patent, energy, by = c("combinekey")) %>% select(-Year, -iso_code, -country, -combinekey)
 head(combine)
@@ -58,6 +59,13 @@ Ah yes, AI is technically an energy guzzler, all using up large amount of energy
 
 [I recommend you cite in the slides LOL]
 
+REMINDER: This is an example analysis!!! Change if you need be!!!
+
+This also takes into account the fixed effects associated with country!!! Year is also included as a factor!!!
+```{r}
+lmtest <- lm(patent_count ~ net_elec_imports + renewables_consumption + population + gdp + factor(year) + factor(Entity), combine)
+summary(lmtest)
+```
 ## OK! I'm really into [Insert some renewable]. Does it mean that if I invest in that more, I will get more AI use???
 
 ## The last one goes here.
