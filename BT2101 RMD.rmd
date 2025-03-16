@@ -57,8 +57,6 @@ In total, we have three hypotheses to test out, as taken from the perception of 
 
 Ah yes, AI is technically an energy guzzler, all using up large amount of energy...
 
-[I recommend you cite in the slides LOL]
-
 REMINDER: This is an example analysis!!! Change if you need be!!!
 
 This also takes into account the fixed effects associated with country!!! Year is also included as a factor!!!
