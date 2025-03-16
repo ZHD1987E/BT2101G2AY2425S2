@@ -3,7 +3,11 @@ name: Generating HTML file for report viewing
 on:
   push:
     paths:
-      - '*.Rmd'
+      - '*'
+  pull:
+    paths:
+      - '*'
+
 jobs:
   render:
     runs-on: ubuntu-latest
