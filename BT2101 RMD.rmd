@@ -66,6 +66,3 @@ This also takes into account the fixed effects associated with country!!! Year i
 lmtest <- lm(patent_count ~ net_elec_imports + renewables_consumption + population + gdp + factor(year) + factor(Entity), combine)
 summary(lmtest)
 ```
-## OK! I'm really into [Insert some renewable]. Does it mean that if I invest in that more, I will get more AI use???
-
-## Does it mean that we will need to import more electricity (LOL)
