@@ -5,6 +5,7 @@ output: github_document
 Preparation
 ```{r}
 library(dplyr)
+library(ggplot2)
 ```
 # Artificial Intelligence and Energy
 
