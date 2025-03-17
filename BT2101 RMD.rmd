@@ -74,3 +74,7 @@ plot1 <- plot(combine$renewables_consumption, combine$patent_count)
 ```
 
 That does not look linear... We need to do something else.
+
+```{r}
+plot2 <- plot(log(combine$renewables_consumption), log(combine$patent_count))
+```
