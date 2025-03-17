@@ -2,7 +2,10 @@
 title: "Untitled"
 output: github_document
 ---
-
+Preparation
+```{r}
+library(dplyr)
+```
 # Artificial Intelligence and Energy
 
 Before we begin, we need to import the relevant datasets, here is one for the energy consumption:
@@ -15,7 +18,6 @@ head(energy)
 ...and here is one for AI patents (which we use as a proxy of how AI-intensive a country is):
 
 ```{r}
-library(dplyr)
 patent <- read.csv("ai_patents.csv")
 patent <- patent %>% rename(patent_count = Patent.applications...Field..All)
 head(patent)
@@ -64,3 +66,11 @@ This also takes into account the fixed effects associated with country!!! Year i
 lmtest <- lm(patent_count ~ net_elec_imports + renewables_consumption + population + gdp + factor(year) + factor(Entity), combine)
 summary(lmtest)
 ```
+
+We then choose to plot something...
+
+```{r}
+plot1 <- plot(combine$renewables_consumption, combine$patent_count)
+```
+
+That does not look linear... We need to do something else.

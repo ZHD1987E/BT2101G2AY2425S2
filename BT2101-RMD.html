@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="untitled">Untitled</h1>
+<p>Preparation</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;
+
+## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag
+
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<h1 id="artificial-intelligence-and-energy">Artificial Intelligence and
+Energy</h1>
+<p>Before we begin, we need to import the relevant datasets, here is one
+for the energy consumption:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>energy <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;energy_data.csv&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>energy <span class="ot">&lt;-</span> energy <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!</span><span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;change&quot;</span>, <span class="st">&quot;share&quot;</span>, <span class="st">&quot;per_capita&quot;</span>), <span class="at">ignore.case =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(iso_code <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">head</span>(energy)</span></code></pre></div>
+<pre><code>##       country year iso_code population gdp biofuel_consumption
+## 1 Afghanistan 1900      AFG    4707744  NA                  NA
+## 2 Afghanistan 1901      AFG    4751177  NA                  NA
+## 3 Afghanistan 1902      AFG    4802500  NA                  NA
+## 4 Afghanistan 1903      AFG    4861833  NA                  NA
+## 5 Afghanistan 1904      AFG    4921891  NA                  NA
+## 6 Afghanistan 1905      AFG    4982681  NA                  NA
+##   biofuel_electricity carbon_intensity_elec coal_consumption coal_electricity
+## 1                  NA                    NA               NA               NA
+## 2                  NA                    NA               NA               NA
+## 3                  NA                    NA               NA               NA
+## 4                  NA                    NA               NA               NA
+## 5                  NA                    NA               NA               NA
+## 6                  NA                    NA               NA               NA
+##   coal_production electricity_demand electricity_generation energy_per_gdp
+## 1               0                 NA                     NA             NA
+## 2               0                 NA                     NA             NA
+## 3               0                 NA                     NA             NA
+## 4               0                 NA                     NA             NA
+## 5               0                 NA                     NA             NA
+## 6               0                 NA                     NA             NA
+##   fossil_electricity fossil_fuel_consumption gas_consumption gas_electricity
+## 1                 NA                      NA              NA              NA
+## 2                 NA                      NA              NA              NA
+## 3                 NA                      NA              NA              NA
+## 4                 NA                      NA              NA              NA
+## 5                 NA                      NA              NA              NA
+## 6                 NA                      NA              NA              NA
+##   gas_production greenhouse_gas_emissions hydro_consumption hydro_electricity
+## 1              0                       NA                NA                NA
+## 2              0                       NA                NA                NA
+## 3              0                       NA                NA                NA
+## 4              0                       NA                NA                NA
+## 5              0                       NA                NA                NA
+## 6              0                       NA                NA                NA
+##   low_carbon_consumption low_carbon_electricity net_elec_imports
+## 1                     NA                     NA               NA
+## 2                     NA                     NA               NA
+## 3                     NA                     NA               NA
+## 4                     NA                     NA               NA
+## 5                     NA                     NA               NA
+## 6                     NA                     NA               NA
+##   nuclear_consumption nuclear_electricity oil_consumption oil_electricity
+## 1                  NA                  NA              NA              NA
+## 2                  NA                  NA              NA              NA
+## 3                  NA                  NA              NA              NA
+## 4                  NA                  NA              NA              NA
+## 5                  NA                  NA              NA              NA
+## 6                  NA                  NA              NA              NA
+##   oil_production other_renewable_consumption other_renewable_electricity
+## 1             NA                          NA                          NA
+## 2             NA                          NA                          NA
+## 3             NA                          NA                          NA
+## 4             NA                          NA                          NA
+## 5             NA                          NA                          NA
+## 6             NA                          NA                          NA
+##   other_renewable_exc_biofuel_electricity primary_energy_consumption
+## 1                                      NA                         NA
+## 2                                      NA                         NA
+## 3                                      NA                         NA
+## 4                                      NA                         NA
+## 5                                      NA                         NA
+## 6                                      NA                         NA
+##   renewables_consumption renewables_electricity solar_consumption
+## 1                     NA                     NA                NA
+## 2                     NA                     NA                NA
+## 3                     NA                     NA                NA
+## 4                     NA                     NA                NA
+## 5                     NA                     NA                NA
+## 6                     NA                     NA                NA
+##   solar_electricity wind_consumption wind_electricity
+## 1                NA               NA               NA
+## 2                NA               NA               NA
+## 3                NA               NA               NA
+## 4                NA               NA               NA
+## 5                NA               NA               NA
+## 6                NA               NA               NA</code></pre>
+<p>…and here is one for AI patents (which we use as a proxy of how
+AI-intensive a country is):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>patent <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;ai_patents.csv&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>patent <span class="ot">&lt;-</span> patent <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">patent_count =</span> Patent.applications...Field..All)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">head</span>(patent)</span></code></pre></div>
+<pre><code>##      Entity Code Year patent_count
+## 1 Argentina  ARG 2013            1
+## 2 Argentina  ARG 2016            1
+## 3 Argentina  ARG 2017            1
+## 4 Argentina  ARG 2018            7
+## 5 Argentina  ARG 2019            8
+## 6 Argentina  ARG 2020           10</code></pre>
+<p>Obviously, we need to merge them in some way. This is what we have
+done.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>energy <span class="ot">&lt;-</span> energy <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(country, year) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">combinekey =</span> <span class="fu">paste</span>(iso_code,<span class="fu">toString</span>(year)))</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>patent <span class="ot">&lt;-</span> patent <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Code, Year) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">combinekey =</span> <span class="fu">paste</span>(Code,<span class="fu">toString</span>(Year)))</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>combine <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(patent, energy, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;combinekey&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Year, <span class="sc">-</span>iso_code, <span class="sc">-</span>country, <span class="sc">-</span>combinekey)</span></code></pre></div>
+<pre><code>## Adding missing grouping variables: `Year`</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">head</span>(combine)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 42
+## # Groups:   Code, Year [6]
+##    Year Entity   Code  patent_count  year population     gdp biofuel_consumption
+##   &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;   &lt;dbl&gt;               &lt;dbl&gt;
+## 1  2013 Argenti… ARG              1  2013   42388268 8.49e11               11.9 
+## 2  2016 Argenti… ARG              1  2016   43668236 8.33e11               16.0 
+## 3  2017 Argenti… ARG              1  2017   44054616 8.56e11               18.4 
+## 4  2018 Argenti… ARG              7  2018   44413592 8.34e11               17.6 
+## 5  2019 Argenti… ARG              8  2019   44745516 8.17e11               18.0 
+## 6  2020 Argenti… ARG             10  2020   45036032 7.36e11                9.65
+## # ℹ 34 more variables: biofuel_electricity &lt;dbl&gt;, carbon_intensity_elec &lt;dbl&gt;,
+## #   coal_consumption &lt;dbl&gt;, coal_electricity &lt;dbl&gt;, coal_production &lt;dbl&gt;,
+## #   electricity_demand &lt;dbl&gt;, electricity_generation &lt;dbl&gt;,
+## #   energy_per_gdp &lt;dbl&gt;, fossil_electricity &lt;dbl&gt;,
+## #   fossil_fuel_consumption &lt;dbl&gt;, gas_consumption &lt;dbl&gt;,
+## #   gas_electricity &lt;dbl&gt;, gas_production &lt;dbl&gt;,
+## #   greenhouse_gas_emissions &lt;dbl&gt;, hydro_consumption &lt;dbl&gt;, …</code></pre>
+<p>In summary, what we have done is as follows: - Only considered
+countries with an ISO code (meaning no regionals) - Merged the data
+between the energy consumption and the patent data for each country and
+each year</p>
+<p>Of course, we can do further consolidation as we go along.</p>
+<p><strong>A warning about our observations</strong></p>
+<p>Like many real-world data, we ARE looking at an unbalanced
+dataset.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>combine <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Code) <span class="sc">%&gt;%</span> <span class="fu">count</span>(Code)</span></code></pre></div>
+<pre><code>## # A tibble: 69 × 2
+## # Groups:   Code [69]
+##    Code      n
+##    &lt;chr&gt; &lt;int&gt;
+##  1 ARG       7
+##  2 AUS      10
+##  3 AUT       9
+##  4 AZE       1
+##  5 BEL       8
+##  6 BGR       6
+##  7 BRA       9
+##  8 BRN       1
+##  9 CAN      10
+## 10 CHE       8
+## # ℹ 59 more rows</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>combine <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span> <span class="fu">count</span>(Year)</span></code></pre></div>
+<pre><code>## # A tibble: 11 × 2
+## # Groups:   Year [11]
+##     Year     n
+##    &lt;int&gt; &lt;int&gt;
+##  1  2013    38
+##  2  2014    39
+##  3  2015    44
+##  4  2016    51
+##  5  2017    51
+##  6  2018    53
+##  7  2019    50
+##  8  2020    49
+##  9  2021    47
+## 10  2022    31
+## 11  2023    11</code></pre>
+<p>So what now?</p>
+<p>BLAH BLAH BLAH</p>
+<h1 id="our-hypotheses">Our Hypotheses</h1>
+<p>In total, we have three hypotheses to test out, as taken from the
+perception of the general public.</p>
+<h2 id="is-it-really-true-that-having-more-ai-use-will-lead-to-more-reusable-energy">Is
+it really true that having more AI use will lead to more reusable
+energy???</h2>
+<p>Ah yes, AI is technically an energy guzzler, all using up large
+amount of energy…</p>
+<p>REMINDER: This is an example analysis!!! Change if you need be!!!</p>
+<p>This also takes into account the fixed effects associated with
+country!!! Year is also included as a factor!!!</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>lmtest <span class="ot">&lt;-</span> <span class="fu">lm</span>(patent_count <span class="sc">~</span> net_elec_imports <span class="sc">+</span> renewables_consumption <span class="sc">+</span> population <span class="sc">+</span> gdp <span class="sc">+</span> <span class="fu">factor</span>(year) <span class="sc">+</span> <span class="fu">factor</span>(Entity), combine)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">summary</span>(lmtest)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = patent_count ~ net_elec_imports + renewables_consumption + 
+##     population + gdp + factor(year) + factor(Entity), data = combine)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20057.2   -328.5     -6.9    273.0  11728.2 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   2.997e+03  1.192e+03   2.515 0.012360 *  
+## net_elec_imports              4.539e+01  1.827e+01   2.484 0.013461 *  
+## renewables_consumption        1.926e+01  2.330e+00   8.268 2.87e-15 ***
+## population                   -1.485e-04  2.695e-05  -5.508 7.03e-08 ***
+## gdp                           2.295e-09  8.971e-10   2.559 0.010928 *  
+## factor(year)2014             -3.420e+02  4.882e+02  -0.701 0.484020    
+## factor(year)2015             -5.911e+02  4.762e+02  -1.241 0.215351    
+## factor(year)2016             -8.045e+02  4.656e+02  -1.728 0.084895 .  
+## factor(year)2017             -8.985e+02  4.693e+02  -1.914 0.056397 .  
+## factor(year)2018             -9.472e+02  4.667e+02  -2.029 0.043177 *  
+## factor(year)2019             -9.189e+02  4.720e+02  -1.947 0.052379 .  
+## factor(year)2020             -5.918e+02  4.947e+02  -1.196 0.232428    
+## factor(year)2021             -1.051e+03  4.860e+02  -2.162 0.031316 *  
+## factor(year)2022             -2.636e+03  5.405e+02  -4.877 1.64e-06 ***
+## factor(Entity)Australia      -3.535e+03  1.272e+03  -2.779 0.005739 ** 
+## factor(Entity)Austria        -4.955e+03  1.243e+03  -3.986 8.18e-05 ***
+## factor(Entity)Azerbaijan     -9.540e+02  2.312e+03  -0.413 0.680128    
+## factor(Entity)Belgium        -2.862e+03  1.322e+03  -2.165 0.031040 *  
+## factor(Entity)Brazil         -8.877e+03  5.371e+03  -1.653 0.099238 .  
+## factor(Entity)Bulgaria       -1.549e+03  1.394e+03  -1.111 0.267294    
+## factor(Entity)Canada         -2.017e+04  2.168e+03  -9.301  &lt; 2e-16 ***
+## factor(Entity)Chile          -2.182e+03  1.213e+03  -1.799 0.072920 .  
+## factor(Entity)China           9.819e+04  3.069e+04   3.199 0.001503 ** 
+## factor(Entity)Colombia        8.820e+02  1.269e+03   0.695 0.487428    
+## factor(Entity)Croatia        -2.487e+03  1.621e+03  -1.535 0.125760    
+## factor(Entity)Czechia        -1.211e+03  1.383e+03  -0.876 0.381602    
+## factor(Entity)Denmark        -3.281e+03  1.282e+03  -2.558 0.010934 *  
+## factor(Entity)Estonia        -4.684e+02  2.389e+03  -0.196 0.844651    
+## factor(Entity)Finland        -4.418e+03  1.262e+03  -3.501 0.000523 ***
+## factor(Entity)France         -2.288e+03  1.621e+03  -1.411 0.159037    
+## factor(Entity)Germany        -8.283e+03  1.621e+03  -5.108 5.35e-07 ***
+## factor(Entity)Greece         -2.229e+03  1.231e+03  -1.810 0.071078 .  
+## factor(Entity)Hong Kong      -2.373e+03  1.535e+03  -1.546 0.123071    
+## factor(Entity)Hungary        -2.270e+03  1.250e+03  -1.815 0.070320 .  
+## factor(Entity)India           1.662e+05  3.145e+04   5.284 2.22e-07 ***
+## factor(Entity)Indonesia       2.779e+04  5.002e+03   5.555 5.51e-08 ***
+## factor(Entity)Iran            6.873e+03  2.345e+03   2.931 0.003603 ** 
+## factor(Entity)Ireland        -2.018e+03  1.665e+03  -1.212 0.226353    
+## factor(Entity)Israel         -1.389e+03  1.308e+03  -1.062 0.288896    
+## factor(Entity)Italy          -5.939e+03  1.241e+03  -4.784 2.54e-06 ***
+## factor(Entity)Japan          -1.178e+03  2.091e+03  -0.563 0.573615    
+## factor(Entity)Latvia         -2.357e+03  1.869e+03  -1.261 0.208194    
+## factor(Entity)Lithuania      -2.288e+03  1.343e+03  -1.703 0.089422 .  
+## factor(Entity)Luxembourg     -2.181e+03  1.408e+03  -1.549 0.122169    
+## factor(Entity)Malaysia       -5.508e+02  1.099e+03  -0.501 0.616424    
+## factor(Entity)Mexico          8.514e+03  1.882e+03   4.523 8.37e-06 ***
+## factor(Entity)Morocco         1.869e+03  1.049e+03   1.782 0.075558 .  
+## factor(Entity)Netherlands    -2.997e+03  1.270e+03  -2.360 0.018835 *  
+## factor(Entity)New Zealand    -3.879e+03  1.337e+03  -2.902 0.003948 ** 
+## factor(Entity)Norway         -9.123e+03  1.372e+03  -6.648 1.14e-10 ***
+## factor(Entity)Peru            2.145e+02  1.182e+03   0.181 0.856099    
+## factor(Entity)Philippines     1.054e+04  1.971e+03   5.345 1.63e-07 ***
+## factor(Entity)Poland         -5.459e+02  1.100e+03  -0.496 0.620041    
+## factor(Entity)Portugal       -2.885e+03  1.262e+03  -2.286 0.022858 *  
+## factor(Entity)Romania        -1.390e+03  1.194e+03  -1.164 0.245181    
+## factor(Entity)Russia          1.917e+03  2.119e+03   0.905 0.366329    
+## factor(Entity)Slovakia       -2.203e+03  1.640e+03  -1.343 0.180065    
+## factor(Entity)Slovenia       -2.461e+03  1.536e+03  -1.602 0.109987    
+## factor(Entity)South Africa    4.415e+03  1.102e+03   4.008 7.49e-05 ***
+## factor(Entity)South Korea     2.803e+03  1.374e+03   2.039 0.042176 *  
+## factor(Entity)Spain          -4.618e+03  1.032e+03  -4.476 1.03e-05 ***
+## factor(Entity)Sri Lanka       1.544e+02  2.248e+03   0.069 0.945269    
+## factor(Entity)Sweden         -6.107e+03  1.328e+03  -4.598 5.98e-06 ***
+## factor(Entity)Switzerland    -4.219e+03  1.338e+03  -3.152 0.001759 ** 
+## factor(Entity)Taiwan         -1.464e+03  1.351e+03  -1.084 0.279332    
+## factor(Entity)Thailand        3.382e+03  2.295e+03   1.474 0.141426    
+## factor(Entity)Turkey          3.902e+02  1.217e+03   0.321 0.748618    
+## factor(Entity)Ukraine         3.032e+03  1.076e+03   2.819 0.005087 ** 
+## factor(Entity)United Kingdom -4.234e+03  1.255e+03  -3.373 0.000826 ***
+## factor(Entity)United States  -3.389e+04  6.821e+03  -4.968 1.06e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2043 on 350 degrees of freedom
+##   (44 observations deleted due to missingness)
+## Multiple R-squared:  0.9355, Adjusted R-squared:  0.9228 
+## F-statistic: 73.56 on 69 and 350 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We then choose to plot something…</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">plot</span>(combine<span class="sc">$</span>renewables_consumption, combine<span class="sc">$</span>patent_count)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>That does not look linear… We need to do something else.</p>
+
+</body>
+</html>
