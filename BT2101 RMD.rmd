@@ -28,4 +28,11 @@ survey$polytechnic <- as.numeric(survey$polytechnic)
 survey$ib <- as.numeric(survey$ib)
 ```
 
-Now, we do the propensity score matching
+Now, we do the propensity score matching with a test randion variable
+```{r}
+library(MatchIt)
+survey$aiusebinary <- ifelse(survey$ai_use_freq_rate >= 3.5, 1, 0)
+matchOut <- matchit(aiusebinary ~ curr_gpa + y1_gpa + anxiety_rate, data = survey, method = "nearest")
+survey_test <- match.data(matchOut)
+head(survey_test)
+```
