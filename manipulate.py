@@ -62,3 +62,4 @@ df = pd.read_excel(r'c:\Users\UNIVERSITY USE\Desktop\BT2101G2AY2425S2\BT2101 Sur
 
 df_clean = clean_data(df.copy())
 df_clean.head()
+df_clean.to_csv('survey.csv')

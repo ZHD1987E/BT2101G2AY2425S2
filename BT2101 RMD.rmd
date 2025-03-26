@@ -31,6 +31,6 @@ survey$ib <- as.numeric(survey$ib)
 Now, we can do a simple linear regression analysis as a test
 
 ```{r}
-lm1 <- lm(curr_gpa ~ ai_use_freq_rate + ai_impact_rate + alevel + factor(enrol) + factor(major), data = survey)
+lm1 <- lm(curr_gpa ~ ai_use_freq_rate + ai_impact_rate + ai_use_nounderstand + ai_strict_rate + alevel + factor(enrol) + factor(major) + y1_gpa, data = survey)
 summary(lm1)
 ```
