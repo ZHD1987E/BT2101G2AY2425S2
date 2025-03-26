@@ -40,6 +40,6 @@ head(survey_test)
 Now we can try doing a simple linear regression...
 
 ```{r}
-lmtest <- lm(curr_gpa ~ factor(major) + alevel + ai_use_freq_rate, data = survey_test)
+lmtest <- lm(curr_gpa ~ factor(major) + alevel + ai_use_freq_rate + ai_impact_rate + ai_strict_rate, data = survey_test)
 summary(lmtest)
 ```
