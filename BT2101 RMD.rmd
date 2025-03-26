@@ -36,3 +36,10 @@ matchOut <- matchit(aiusebinary ~ curr_gpa + y1_gpa + anxiety_rate, data = surve
 survey_test <- match.data(matchOut)
 head(survey_test)
 ```
+
+Now we can try doing a simple linear regression...
+
+```{r}
+lmtest <- lm(curr_gpa ~ factor(major) + alevel + ai_use_freq_rate, data = survey_test)
+summary(lmtest)
+```
