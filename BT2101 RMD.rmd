@@ -2,3 +2,16 @@
 title: "BT2101 GROUP 2"
 output: github_document
 ---
+
+First we load the sheet from Google Forms.
+```{r}
+library(googlesheets4)
+library(dplyr)
+x <- read_sheet('https://docs.google.com/spreadsheets/d/144HYA5zJPYgjzJqqMeKYSoY1UBc24wjl8iE5P6-cdAM/edit?usp=sharing')
+head(x)
+```
+
+Then, we proceed to drop some rows
+```{r}
+x <- x %>% select(-timestamp)
+```
