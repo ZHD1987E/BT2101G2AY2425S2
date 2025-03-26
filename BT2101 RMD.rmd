@@ -5,13 +5,25 @@ output: github_document
 
 First we load the sheet from Google Forms.
 ```{r}
-library(googlesheets4)
 library(dplyr)
-x <- read_sheet('https://docs.google.com/spreadsheets/d/144HYA5zJPYgjzJqqMeKYSoY1UBc24wjl8iE5P6-cdAM/edit?usp=sharing')
-head(x)
+survey <- read.csv("survey.csv")
+head(survey)
 ```
 
-Then, we proceed to drop some rows
+Then, we proceed to check if someone only fills up only one of the three pre-university scores.
 ```{r}
-x <- x %>% select(-timestamp)
+check_one_value <- function(row) {
+    sum(!is.na(row[c("alevel", "polytechnic", "ib")])) == 1
+}
+
+survey <- survey %>% filter(!apply(survey, 1, check_one_value))
+head(survey)
+```
+
+...and then we convert score rows into numeric values (and then drop those which are NOT numeric)
+
+```{r}
+survey$alevel <- as.numeric(survey$alevel)
+survey$polytechnic <- as.numeric(survey$polytechnic)
+survey$ib <- as.numeric(survey$ib)
 ```
