@@ -44,7 +44,7 @@ def clean_data(df):
     # Rename column 'Have you ever paid for an AI subscription? If so, how long have you been using it?' to 'aisub_time'
     df = df.rename(columns={'Have you ever paid for an AI subscription? If so, how long have you been using it?': 'aisub_time'})
     # Rename column 'How would you rate your proficiency in using technology for academic purposes? ' to 'techprof_rate'
-    df = df.rename(columns={'How would you rate your proficiency in using technology for academic purposes? ': 'techprof_rate'})
+    df = df.rename(columns={'How would you rate your proficiency in using technology for academic purposes? ': 'tech_prof_rate'})
     # Rename column 'How often do you use AI tools outside of academic purposes? ' to 'ainoneduc_rate'
     df = df.rename(columns={'How often do you use AI tools outside of academic purposes? ': 'ainoneduc_rate'})
     # Rename column 'Have you relied on AI tools to complete assignments or projects without fully understanding the material? ' to 'ai_use_nounderstand'
@@ -52,7 +52,7 @@ def clean_data(df):
     # Rename column 'Do you think AI has improved your ability to understand complex topics? ' to 'ai_impact_rate'
     df = df.rename(columns={'Do you think AI has improved your ability to understand complex topics? ': 'ai_impact_rate'})
     # Rename column 'How would you rate your comfort and proficiency with using technology for academic purposes? \n' to 'tech_prof_rate'
-    df = df.rename(columns={'How would you rate your comfort and proficiency with using technology for academic purposes? \n': 'tech_prof_rate'})
+    df = df.rename(columns={'How would you rate your comfort and proficiency with using technology for academic purposes? \n': 'tech_comfort_rate'})
     # Rename column 'From a scale of 1 to 5, how strict do you think were the regulations around AI during your time of study?' to 'ai_strict_rate'
     df = df.rename(columns={'From a scale of 1 to 5, how strict do you think were the regulations around AI during your time of study?': 'ai_strict_rate'})
     return df

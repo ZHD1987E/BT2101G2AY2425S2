@@ -1,4 +1,4 @@
-,age,gender,alevel,polytechnic,ib,enrol,major,curr_gpa,y1_gpa,time_exam,time_non_educ,learn_style,ethic_rate,procastinate_rate,ability_rate,effaciacy_rate,anxiety_rate,comfort_rate,ai_use_freq_rate,aisub_time,techprof_rate,ainoneduc_rate,ai_use_nounderstand,ai_impact_rate,tech_prof_rate,ai_strict_rate
+,age,gender,alevel,polytechnic,ib,enrol,major,curr_gpa,y1_gpa,time_exam,time_non_educ,learn_style,ethic_rate,procastinate_rate,ability_rate,effaciacy_rate,anxiety_rate,comfort_rate,ai_use_freq_rate,aisub_time,tech_prof_rate,ainoneduc_rate,ai_use_nounderstand,ai_impact_rate,tech_comfort_rate,ai_strict_rate
 0,19,Female,86.25,,,Y2,Computer Science,4.02,4.25,1-5 hours,6-10 hours,Mixed (a combination of all three),3,5,4,2,4,5,5,1-6 months,5,3,5,4,5,3
 1,23,Male,90.0,,,Y3,Computer Science,4.8,4.67,6-10 hours,11-15 hours,Visual,5,2,4,4,2,5,5,1-6 months,5,5,1,5,5,4
 2,25,Male,90.0,,,Y4,Computer Science,4.87,4.84,6-10 hours,11-15 hours,Visual,4,4,5,4,3,5,4,Never,4,2,4,4,5,5
