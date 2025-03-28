@@ -32,7 +32,7 @@ Now, we do the propensity score matching.
 ```{r}
 library(MatchIt)
 survey$aiusebinary <- ifelse(survey$ai_impact_rate > 4, 1, 0) # problem is, we need to adjust tolerance since so many people rampantly use AI
-matchOut <- matchit(aiusebinary ~ curr_gpa + y1_gpa + anxiety_rate + age + ai_strict_rate + tech_comfort_rate + tech_prof_rate + aisub_time, data = survey, method = "nearest")
+matchOut <- matchit(aiusebinary ~ y1_gpa + time_exam + time_non_educ + ethic_rate + procastinate_rate + effaciacy_rate + ability_rate + ainoneduc_rate + ai_use_nounderstand + anxiety_rate + age + ai_strict_rate + tech_comfort_rate + tech_prof_rate + aisub_time, data = survey, method = "nearest")
 # adjust cofounders if need be
 survey_test <- match.data(matchOut)
 head(survey_test)
@@ -41,7 +41,7 @@ head(survey_test)
 Now we can try doing a simple linear regression...
 
 ```{r}
-lmtest <- lm(curr_gpa ~ ai_use_freq_rate + age + alevel + factor(major) + ai_impact_rate + ai_strict_rate, data = survey_test)
+lmtest <- lm(curr_gpa ~ ai_use_freq_rate + y1_gpa + factor(major) + factor(time_exam) + factor(learn_style), data = survey_test)
 summary(lmtest)
 ```
 
