@@ -58,7 +58,7 @@ def clean_data(df):
     return df
 
 # Loaded variable 'df' from URI: c:\Users\UNIVERSITY USE\Desktop\BT2101G2AY2425S2\BT2101 Survey  (Responses).xlsx
-df = pd.read_excel(r'c:\Users\UNIVERSITY USE\Desktop\BT2101G2AY2425S2\BT2101 Survey  (Responses).xlsx')
+df = pd.read_excel("BT2101G2AY2425S2/BT2101_Survey_(Responses).xlsx")
 
 df_clean = clean_data(df.copy())
 df_clean.head()

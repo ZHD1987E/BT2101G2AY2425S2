@@ -6,7 +6,7 @@ output: github_document
 First we load the sheet from Google Forms.
 ```{r}
 library(dplyr)
-survey <- read.csv("survey.csv")
+survey <- read.csv("latestSurvey.csv")
 head(survey)
 ```
 
