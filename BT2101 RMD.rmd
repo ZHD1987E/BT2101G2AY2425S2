@@ -28,7 +28,7 @@ survey$polytechnic <- as.numeric(survey$polytechnic)
 survey$ib <- as.numeric(survey$ib)
 ```
 
-Now, we do the propensity score matching with a test randion variable
+Now, we do the GENERALISED propensity score matching.
 ```{r}
 library(MatchIt)
 survey$aiusebinary <- ifelse(survey$ai_impact_rate >= 4, 1, 0) # problem is, we need to adjust tolerance since so many people rampantly use AI
