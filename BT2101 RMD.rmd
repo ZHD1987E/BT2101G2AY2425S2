@@ -28,11 +28,12 @@ survey$polytechnic <- as.numeric(survey$polytechnic)
 survey$ib <- as.numeric(survey$ib)
 ```
 
-Now, we do the GENERALISED propensity score matching.
+Now, we do the propensity score matching.
 ```{r}
 library(MatchIt)
-survey$aiusebinary <- ifelse(survey$ai_impact_rate >= 4, 1, 0) # problem is, we need to adjust tolerance since so many people rampantly use AI
-matchOut <- matchit(aiusebinary ~ curr_gpa + y1_gpa + anxiety_rate + age + ai_strict_rate + tech_prof_acad_rate + tech_prof_rate + aisub_time, data = survey, method = "nearest")
+survey$aiusebinary <- ifelse(survey$ai_impact_rate > 4, 1, 0) # problem is, we need to adjust tolerance since so many people rampantly use AI
+matchOut <- matchit(aiusebinary ~ curr_gpa + y1_gpa + anxiety_rate + age + ai_strict_rate + tech_comfort_rate + tech_prof_rate + aisub_time, data = survey, method = "nearest")
+# adjust cofounders if need be
 survey_test <- match.data(matchOut)
 head(survey_test)
 ```
@@ -40,6 +41,15 @@ head(survey_test)
 Now we can try doing a simple linear regression...
 
 ```{r}
-lmtest <- lm(curr_gpa ~ factor(major) + ai_use_freq_rate + ai_impact_rate + ai_strict_rate, data = survey_test)
+lmtest <- lm(curr_gpa ~ ai_use_freq_rate + age + alevel + factor(major) + ai_impact_rate + ai_strict_rate, data = survey_test)
 summary(lmtest)
 ```
+
+We also want to see if the dataset is suitable for linear regression model. We plot the distribution of the current GPAs against the frequency of AI use
+
+```{r}
+plot(survey_test$ai_use_freq_rate, survey_test$curr_gpa)
+```
+
+As seen here, we are already dealing with pretty messy data: as our AI use frequency score increases, our variance of our current GPA also increases!!!
+It is also true that the data is not linearly distributed.

@@ -62,4 +62,4 @@ df = pd.read_excel("BT2101_Survey_(Responses).xlsx")
 
 df_clean = clean_data(df.copy())
 df_clean.head()
-df_clean.to_csv('survey.csv')
+df_clean.to_csv('latestSurvey.csv')
