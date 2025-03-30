@@ -31,15 +31,15 @@ survey$ib <- as.numeric(survey$ib)
 Now, we do the generalised propensity score matching.
 ```{r}
 library(np)
-gpm <- glm(ai_use_freq_rate ~ y1_gpa + factor(major), data = survey)
+gpm <- glm(ai_use_freq_rate ~ y1_gpa + factor(major) + age + factor(gender) + anxiety_rate, data = survey)
 survey$gps <- predict(gpm, type = "response")
-npoutcome <- npreg(ai_use_freq_rate ~ gps, data = survey)
-survey$ai_use_freq_rate <- fitted(npoutcome)
+npoutcome <- npreg(ai_use_freq_rate ~ gps, data = survey, regtype = "ll")
+survey$ai_use_freq_rate_fitted <- fitted(npoutcome)
 ```
 Now we can try doing a simple linear regression...
 
 ```{r}
-lmtest <- lm(curr_gpa ~ ai_use_freq_rate + y1_gpa + factor(major) + factor(time_exam) + factor(learn_style), data = survey)
+lmtest <- lm(curr_gpa ~ ai_use_freq_rate_fitted + y1_gpa + factor(major) + factor(time_exam) + factor(gender), data = survey)
 summary(lmtest)
 ```
 
