@@ -1,0 +1,62 @@
+# Load libraries
+library(tidyverse)
+
+# Load dataset
+df <- read.csv("Final_Extended_GPSM_Dataset.csv")
+
+# Fill missing gender as 1 (assuming Male is majority)
+df$gender[is.na(df$gender)] <- 1
+
+# Recode 'study_hours' into numeric
+df$study_hours_num <- recode(df$study_hours,
+                             "Less than 1 hour" = 0.5,
+                             "1-5 hours" = 3,
+                             "6-10 hours" = 8,
+                             "11-15 hours" = 13,
+                             "16-20 hours" = 18,
+                             "21+ hours" = 24)
+
+# Recode 'paid_ai' (aisub_time) into ordinal
+df$aisub_time <- recode(df$paid_ai,
+                        "Never" = 0,
+                        "<1 month" = 1,
+                        "1-6 months" = 2,
+                        "6-12 months" = 3,
+                        ">12 months" = 4)
+
+# Convert pre_u_score to numeric (safely)
+df$pre_u_score <- as.numeric(df$pre_u_score)
+
+# Impute missing numeric values using mean
+impute_mean <- function(x) {
+  x[is.na(x)] <- mean(x, na.rm = TRUE)
+  return(x)
+}
+
+df$study_hours_num <- impute_mean(df$study_hours_num)
+df$aisub_time <- impute_mean(df$aisub_time)
+df$tech_proficiency <- impute_mean(df$tech_proficiency)
+df$stress_level <- impute_mean(df$stress_level)
+df$self_efficacy <- impute_mean(df$self_efficacy)
+df$ai_regulations <- impute_mean(df$ai_regulations)
+df$pre_u_score <- impute_mean(df$pre_u_score)
+
+# Create GPS (Generalized Propensity Score)
+gps_model <- lm(ai_usage_freq ~ age + gender + study_hours_num + aisub_time +
+                   tech_proficiency + stress_level + self_efficacy +
+                   ai_regulations + pre_u_score,
+                data = df)
+
+df$gps <- predict(gps_model)
+
+# Stratify into 5 equal-sized GPS strata (quintiles)
+df$gps_strata <- ntile(df$gps, 5)
+
+# Compare average GPA across AI usage levels within strata
+result <- df %>%
+  group_by(gps_strata, ai_usage_freq) %>%
+  summarise(mean_gpa = mean(current_gpa, na.rm = TRUE),
+            count = n()) %>%
+  arrange(gps_strata, ai_usage_freq)
+
+print(result)
