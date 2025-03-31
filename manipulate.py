@@ -4,7 +4,7 @@ def clean_data(df):
     # Drop column: 'Timestamp'
     df = df.drop(columns=['Timestamp'])
     # Rename column 'What is your age?' to 'age'
-    df = df.rename(columns={'What is your age?': 'age'})
+    df = df.rename(columns={'What is your age? ': 'age'})
     # Rename column 'What is your gender? ' to 'gender'
     df = df.rename(columns={'What is your gender? ': 'gender'})
     # Rename column 'What is your A level UAS score? (If applicable)\n\nIf you are not sure, please click here to calculate your UAS score.' to 'alevel'
@@ -58,8 +58,8 @@ def clean_data(df):
     return df
 
 # Loaded variable 'df' from URI: c:\Users\UNIVERSITY USE\Desktop\BT2101G2AY2425S2\BT2101 Survey  (Responses).xlsx
-df = pd.read_excel("BT2101G2AY2425S2/BT2101_Survey_(Responses).xlsx")
+df = pd.read_excel("BT2101_Survey_(Responses).xlsx")
 
 df_clean = clean_data(df.copy())
 df_clean.head()
-df_clean.to_csv('survey.csv')
+df_clean.to_csv('latestSurvey.csv')

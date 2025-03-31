@@ -1,0 +1,53 @@
+---
+title: "BT2101 GROUP 2"
+output: github_document
+---
+
+First we load the sheet from Google Forms.
+```{r}
+library(dplyr)
+survey <- read.csv("latestSurvey.csv")
+head(survey)
+```
+
+Then, we proceed to check if someone only fills up only one of the three pre-university scores.
+```{r}
+check_one_value <- function(row) {
+    sum(!is.na(row[c("alevel", "polytechnic", "ib")])) == 1
+}
+
+survey <- survey %>% filter(!apply(survey, 1, check_one_value))
+head(survey)
+```
+
+...and then we convert score rows into numeric values (and then drop those which are NOT numeric)
+
+```{r}
+survey$alevel <- as.numeric(survey$alevel)
+survey$polytechnic <- as.numeric(survey$polytechnic)
+survey$ib <- as.numeric(survey$ib)
+```
+
+Now, we do the generalised propensity score matching.
+```{r}
+library(np)
+gpm <- glm(ai_use_freq_rate ~ y1_gpa + factor(major) + age + factor(gender) + anxiety_rate, data = survey)
+survey$gps <- predict(gpm, type = "response")
+npoutcome <- npreg(ai_use_freq_rate ~ gps, data = survey, regtype = "ll")
+survey$ai_use_freq_rate_fitted <- fitted(npoutcome)
+```
+Now we can try doing a simple linear regression...
+
+```{r}
+lmtest <- lm(curr_gpa ~ ai_use_freq_rate_fitted + y1_gpa + factor(major) + factor(time_exam) + factor(gender), data = survey)
+summary(lmtest)
+```
+
+We also want to see if the dataset is suitable for linear regression model. We plot the distribution of the current GPAs against the frequency of AI use
+
+```{r}
+plot(survey$ai_use_freq_rate, survey$curr_gpa)
+```
+
+As seen here, we are already dealing with pretty messy data: as our AI use frequency score increases, our variance of our current GPA also increases!!!
+It is also true that the data is not linearly distributed.
