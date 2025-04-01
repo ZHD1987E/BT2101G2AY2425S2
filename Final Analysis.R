@@ -11,9 +11,9 @@ library(tidyverse)
 library(MatchIt)
 library(cobalt)
 library(WeightIt)
+library(nnet)
 
-setwd("/Users/emmyli/Downloads/")
-survey <- read_excel("survey.xlsx")
+survey <- read_excel("BT2101_Survey_(Responses).xlsx")
 View(survey)
 
 survey_data <- survey[, -1] #remove first column
@@ -69,26 +69,21 @@ confounders <- c(
 
 
 #replace NA values with 0
-for (col in confounders) {
-  if (is.numeric(survey_data[[col]])) {
-    survey_data[[col]][is.na(survey_data[[col]])] <- median(survey_data[[col]], na.rm = TRUE)
-  }
-}
-#DONT USE old version
-survey_data$A_level_UAS[is.na(survey_data$A_level_UAS)] <- 0
-survey_data$polytechnic_GPA[is.na(survey_data$polytechnic_GPA)] <- 0
-survey_data$IB_score[is.na(survey_data$IB_score)] <- 0
+# This is NOT replacing NA values with 0 - Zhang
+survey_data$A_level_UAS <- replace(as.numeric(survey_data$A_level_UAS), is.na(survey_data$A_level_UAS), 0)
+survey_data$polytechnic_GPA <- replace(as.numeric(survey_data$polytechnic_GPA), is.na(survey_data$polytechnic_GPA), 0)
+survey_data$IB_score <- replace(as.numeric(survey_data$IB_score), is.na(survey_data$IB_score), 0)
 
 # Generalized Propensity Score Estimation
 # Use multi-nomial logistic regression for ordinal treatment
-library(nnet)
+
 #Step 1: Estimate Generalized Propensity Scores (GPS)
 ps_model <- multinom(
   AI_frequency ~ .,  # All confounders
   data = survey_data[, c("AI_frequency", confounders)]
 )
 
-# Predict probabilities for each AI usage level (1-5)
+# Predict probabilities for each AI usage level (1-5) for each row
 treatment_probs <- predict(ps_model, type = "probs")
 survey_data <- cbind(survey_data, treatment_probs)
 
