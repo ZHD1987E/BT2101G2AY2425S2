@@ -80,13 +80,13 @@ ps_model <- multinom(
 
 # Predict probabilities for each AI usage level (1-5)
 treatment_probs <- predict(ps_model, type = "probs")
-survey_data <- cbind(survey_data, treatment_probs)
+survey_data <- cbind(survey_data, treatment_probs) # This just creates rows of 1 to 5!
 
 
-# Step 2: Generalized Propensity Score Matching (GPSM)
+# Step 2: Creating weights based on all cofounders and the predicted scores
 
 weights <- weightit(
-  AI_frequency ~ .,  # All confounders
+  AI_frequency ~ .,  # All confounders (This includes the generically named '1', '2' ... '5' rows!!!)
   data = survey_data[, c("AI_frequency", confounders)],
   method = "ps",  # Propensity score weighting
   estimand = "ATE",  # Average Treatment Effect
