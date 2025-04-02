@@ -1,22 +1,16 @@
-install.packages("readxl")
-install.packages("dplyr")
-install.packages("tidyverse")
-install.packages("MatchIt")
-install.packages("cobalt")
-install.packages("WeightIt")
-
 library(readxl)
 library(dplyr)
 library(tidyverse)
 library(MatchIt)
 library(cobalt)
 library(WeightIt)
+library(ggeffects)
 
-setwd("/Users/emmyli/Downloads/")
-survey <- read_excel("survey.xlsx")
+
+survey <- read_excel("Downloads/survey.xlsx")
 View(survey)
 
-survey_data <- survey[, -1] #remove first column
+survey_data <- survey[, -1] #remove first column on time
 
 # Data cleaning and variable renaming
 survey_data <- survey_data %>%
@@ -69,12 +63,6 @@ confounders <- c(
 
 
 #replace NA values with 0
-for (col in confounders) {
-  if (is.numeric(survey_data[[col]])) {
-    survey_data[[col]][is.na(survey_data[[col]])] <- median(survey_data[[col]], na.rm = TRUE)
-  }
-}
-#DONT USE old version
 survey_data$A_level_UAS[is.na(survey_data$A_level_UAS)] <- 0
 survey_data$polytechnic_GPA[is.na(survey_data$polytechnic_GPA)] <- 0
 survey_data$IB_score[is.na(survey_data$IB_score)] <- 0
@@ -82,7 +70,9 @@ survey_data$IB_score[is.na(survey_data$IB_score)] <- 0
 # Generalized Propensity Score Estimation
 # Use multi-nomial logistic regression for ordinal treatment
 library(nnet)
+
 #Step 1: Estimate Generalized Propensity Scores (GPS)
+
 ps_model <- multinom(
   AI_frequency ~ .,  # All confounders
   data = survey_data[, c("AI_frequency", confounders)]
@@ -90,12 +80,13 @@ ps_model <- multinom(
 
 # Predict probabilities for each AI usage level (1-5)
 treatment_probs <- predict(ps_model, type = "probs")
-survey_data <- cbind(survey_data, treatment_probs)
+survey_data <- cbind(survey_data, treatment_probs) # This just creates rows of 1 to 5!
 
-# Step 2: Generalized Propensity Score Matching (GPSM)
-# -----------------------------------------------
+
+# Step 2: Creating weights based on all cofounders and the predicted scores
+
 weights <- weightit(
-  AI_frequency ~ .,  # All confounders
+  AI_frequency ~ .,  # All confounders (This includes the generically named '1', '2' ... '5' rows!!!)
   data = survey_data[, c("AI_frequency", confounders)],
   method = "ps",  # Propensity score weighting
   estimand = "ATE",  # Average Treatment Effect
@@ -105,6 +96,7 @@ weights <- weightit(
 survey_data$weights <- weights$weights
 
 # Step 3: Check Covariate Balance
+
 # For multi-level treatments, use cobalt's bal.tab()
 balance_stats <- bal.tab(
   AI_frequency ~ .,
@@ -115,7 +107,6 @@ balance_stats <- bal.tab(
   quick = FALSE 
 )
 
-print(balance_stats)
 # Plot Balance Check
 love.plot(
   balance_stats,
@@ -124,15 +115,31 @@ love.plot(
   stars = "raw"  # Label raw mean differences
 )
 
+
 # Step 4: Estimate Treatment Effect of AI Usage on GPA
-#Weighted regression model to estimate AI effect on GPA
+
+# Weighted regression model to estimate AI effect on current_GPA
 weighted_model <- lm(
-  current_GPA ~ AI_frequency + age + gender + study_hours + work_ethic + academic_stress,
+  current_GPA ~ AI_frequency + age + gender + study_hours + work_ethic + academic_stress
+    + A_level_UAS + IB_score + polytechnic_GPA + primary_major + Y1_GPA + non_edu_hours  
+    + procrastination + cognitive_ability + self_efficacy + tech_comfort + learning_style
+    + AI_subscription + tech_proficiency + AI_nonacademic_use + AI_regulations,
   data = survey_data,
   weights = survey_data$weights
 )
-
+# To get the coefficients
 summary(weighted_model)
+
+# To visualize the weighted_model
+predicted <- ggpredict(weighted_model, terms = "AI_frequency")
+
+ggplot(predicted, aes(x = x, y = predicted)) +
+  geom_line(size = 1.2, color = "blue") +
+  geom_point(size = 3, color = "red") +
+  labs(title = "Predicted Effect of AI Usage on GPA",
+       x = "AI Frequency",
+       y = "Predicted GPA") +
+  theme_minimal()
 
 
 #Detecting multicollinearity
@@ -165,42 +172,19 @@ ggplot(data = survey_data, aes(x = AI_frequency, y = weights)) +
 library(tidyr)
 survey_data_long <- survey_data %>%
   pivot_longer(
-    cols = c(`1`, `2`, `3`, `4`, `5`),
+    cols = c(`2`, `3`, `4`, `5`),
     names_to = "treatment_level",
     values_to = "probability"
   )
 
-# Step 6: Interpretation of Results
-# The coefficient for AI_frequency in `summary(weighted_model)`
-
-
-## extra plots for visualization
-#denstiy curve
+# Density plot for the probability of treatment
 ggplot(survey_data_long, aes(x = probability, fill = treatment_level)) +
   geom_density(alpha = 0.3, adjust = 2) + 
-  coord_cartesian(ylim = c(0, 5)) +  
+  coord_cartesian(ylim = c(0, 5)) +  # Adjust Y-axis limits
   labs(title = "Generalized Propensity Score Distribution",
        x = "Probability of Treatment Level",
        y = "Density",
        fill = "AI Frequency") +
-  theme_minimal() 
-
-#histogram
-ggplot(survey_data_long, aes(x = probability, fill = treatment_level)) +
-  geom_histogram(alpha = 0.5, position = "identity", binwidth = 0.05) +  # Adjust binwidth
-  coord_cartesian(ylim = c(0, 5)) +
-  labs(title = "Probability Histogram",
-       x = "Probability of Treatment Level",
-       y = "Density",
-       fill = "AI Frequency") +
   theme_minimal()
-
-# Outcome Analysis (Example for current_GPA)
-
-library(survey)
-design <- svydesign(ids = ~1, weights = ~weights, data = survey_data)
-model <- svyglm(current_GPA ~ AI_frequency, design = design)
-summary(model)
-
 
 
