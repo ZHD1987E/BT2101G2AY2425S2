@@ -128,6 +128,7 @@ ggplot(data=survey_data, aes(x=AI_frequency, y=weights)) +
   geom_boxplot() +
   labs(title="Distribution of Weights Across AI Usage Levels")
 
+#test for non-linearity of AI Effect on GPA
 predicted <- ggpredict(weighted_model, terms="AI_frequency")
 ggplot(predicted, aes(x=x, y=predicted)) +
   geom_line(size=1.2, color="blue") +
