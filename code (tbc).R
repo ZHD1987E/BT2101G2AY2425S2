@@ -24,6 +24,8 @@ library(sensemakr) # For sensitivity analysis
 library(ggplot2) # For visualization
 
 # Step 1: Load and Clean Data
+
+latestSurvey <- read_excel("BT2101_Survey_(Responses).xlsx")
 survey_data <- latestSurvey %>%
   rename(
     age = names(latestSurvey)[2],
@@ -54,7 +56,6 @@ survey_data <- latestSurvey %>%
     AI_regulations = names(latestSurvey)[27]
   ) %>%
   mutate(
-    AI_frequency = as.ordered(AI_frequency),
     gender = as.factor(gender),
     primary_major = as.factor(primary_major),
     learning_style = as.factor(learning_style),
@@ -97,14 +98,15 @@ confounders <- c(
 
 
 
-# Checking weights validity 
+# Checking weights validity taking into account the estimated probability
+# of receiving each treatment level
 ps_model <- multinom(AI_frequency ~ ., data = survey_data[, c("AI_frequency", confounders)])
 treatment_probs <- predict(ps_model, type = "probs")
-survey_data <- cbind(survey_data, treatment_probs)
+survey_data2 <- cbind(survey_data, treatment_probs)
 
 weights <- weightit(
   formula = AI_frequency ~ .,
-  data = survey_data[, c("AI_frequency", confounders)],
+  data = survey_data2[, c("AI_frequency", confounders)],
   method = "ps",
   estimand = "ATE",
   stabilize = TRUE
@@ -116,16 +118,16 @@ survey_data$weights <- weights$weights
 #### Above works fine, below doesn't work because of the weights issue (too few responses) ####
 
 # Step 4: Covariate Balance Check
-balance_stats <- bal.tab(
-  formula = AI_frequency ~ .,
-  data = survey_data[, c("AI_frequency", confounders)],
-  weights = survey_data$weights,
-  method = "weighting",
-  stats = c("m", "ks"),
-  quick = FALSE
-)
 
-love.plot(balance_stats, threshold = 0.1, abs = TRUE)
+# balance_stats <- bal.tab(
+#   formula = AI_frequency ~ .,
+#   data = survey_data[, c("AI_frequency", confounders)],
+#   weights = survey_data$weights,
+#   method = "weighting",
+#   stats = c("m", "ks"),
+#   quick = FALSE
+# )
+# love.plot(balance_stats, threshold = 0.1, abs = TRUE)
 
 # Step 5: Weighted Regression Model (Causal Effect Estimation)
 weighted_model <- lm(
@@ -141,6 +143,7 @@ weighted_model <- lm(
 summary(weighted_model)
 
 # Step 6: Diagnostics and Sensitivity Analysis
+alias(weighted_model) # Check for perfect Multicollinearity
 vif(weighted_model) # Multicollinearity check
 
 residuals <- resid(weighted_model)
