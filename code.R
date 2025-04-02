@@ -23,9 +23,8 @@ library(ggeffects) # For non-linearity check
 library(sensemakr) # For sensitivity analysis
 library(ggplot2) # For visualization
 
-# Step 1: Load and Clean Data
+# Step 1: Load and Clean Data (Assuming the survey data has ALREADY been loaded)
 
-latestSurvey <- read_excel("BT2101_Survey_(Responses).xlsx")
 survey_data <- latestSurvey %>%
   rename(
     age = names(latestSurvey)[2],
