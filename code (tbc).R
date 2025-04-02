@@ -143,7 +143,6 @@ weighted_model <- lm(
 summary(weighted_model)
 
 # Step 6: Diagnostics and Sensitivity Analysis
-alias(weighted_model) # Check for perfect Multicollinearity
 vif(weighted_model) # Multicollinearity check
 
 residuals <- resid(weighted_model)
