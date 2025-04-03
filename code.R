@@ -24,8 +24,8 @@ library(sensemakr) # For sensitivity analysis
 library(ggplot2) # For visualization
 
 # Step 1: Load and Clean Data (Assuming the survey data has ALREADY been loaded)
-
-survey_data <- latestSurvey %>%
+latestSurvey <- read_excel("surveyResponses.xlsx")
+survey_data <- latestSurvey %>% # How did you load this?
   rename(
     age = names(latestSurvey)[2],
     gender = names(latestSurvey)[3],
