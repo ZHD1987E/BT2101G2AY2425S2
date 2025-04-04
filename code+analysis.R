@@ -55,6 +55,7 @@ survey_data <- latestSurvey %>% # How did you load this?
     AI_regulations = names(latestSurvey)[27]
   ) %>%
   mutate(
+    AI_frequency = as.factor(AI_frequency),
     gender = as.factor(gender),
     primary_major = as.factor(primary_major),
     learning_style = as.factor(learning_style),
